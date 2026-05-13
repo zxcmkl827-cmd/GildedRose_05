@@ -1,56 +1,84 @@
 #include "GildedRose.h"
+#include "GildedRoseConstants.h"
 
-GildedRose::GildedRose(std::vector<Item>& items) : items(items) {}
+GildedRose::GildedRose(std::vector<Item> &items) : items(items) {}
+void GildedRose::UpdateAgedBrie(int idx) {
+  if (items[idx].quality < GildedRoseConstants::MaxQuality) {
+    items[idx].quality++;
+  }
+
+  items[idx].sellIn--;
+  if (items[idx].sellIn < 0) {
+    if (items[idx].quality < GildedRoseConstants::MaxQuality) {
+      items[idx].quality++;
+    }
+  }
+}
+
+void GildedRose::UpdateBackstage(int idx) {
+  if (items[idx].quality < GildedRoseConstants::MaxQuality) {
+    items[idx].quality++;
+  }
+
+  if (items[idx].sellIn < 11) {
+    if (items[idx].quality < GildedRoseConstants::MaxQuality) {
+      items[idx].quality++;
+    }
+  }
+
+  if (items[idx].sellIn < 6) {
+    if (items[idx].quality < GildedRoseConstants::MaxQuality) {
+      items[idx].quality++;
+    }
+  }
+  items[idx].sellIn--;
+  if (items[idx].sellIn < 0) {
+    items[idx].quality = 0;
+  }
+}
+
+void GildedRose::UpdateSulfuras(int idx) { return; }
+
+void GildedRose::UpdateNormal(int idx) {
+  if (items[idx].quality > GildedRoseConstants::MinQuality) {
+    items[idx].quality--;
+  }
+  items[idx].sellIn--;
+  if (items[idx].sellIn < 0) {
+    if (items[idx].quality > GildedRoseConstants::MinQuality) {
+      items[idx].quality--;
+    }
+  }
+}
+
+void GildedRose::UpdateConjured(int idx) {
+  if (items[idx].quality > GildedRoseConstants::MinQuality) {
+    items[idx].quality--;
+  }
+  items[idx].sellIn--;
+  if (items[idx].sellIn < 0) {
+    if (items[idx].quality >= 4) {
+      items[idx].quality -= 4;
+    } else {
+      items[idx].quality = 0;
+    }
+  } else {
+    items[idx].quality--;
+  }
+}
 
 void GildedRose::updateQuality() {
-    for (size_t i = 0; i < items.size(); i++) {
-        if (items[i].name != "Aged Brie"
-                && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-            if (items[i].quality > 0) {
-                if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                    items[i].quality = items[i].quality - 1;
-                }
-            }
-        } else {
-            if (items[i].quality < 50) {
-                items[i].quality = items[i].quality + 1;
-
-                if (items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
-                    if (items[i].sellIn < 11) {
-                        if (items[i].quality < 50) {
-                            items[i].quality = items[i].quality + 1;
-                        }
-                    }
-
-                    if (items[i].sellIn < 6) {
-                        if (items[i].quality < 50) {
-                            items[i].quality = items[i].quality + 1;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-            items[i].sellIn = items[i].sellIn - 1;
-        }
-
-        if (items[i].sellIn < 0) {
-            if (items[i].name != "Aged Brie") {
-                if (items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-                    if (items[i].quality > 0) {
-                        if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                            items[i].quality = items[i].quality - 1;
-                        }
-                    }
-                } else {
-                    items[i].quality = items[i].quality - items[i].quality;
-                }
-            } else {
-                if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1;
-                }
-            }
-        }
+  for (size_t i = 0; i < items.size(); i++) {
+    if (items[i].name == GildedRoseConstants::AGEDBRIE) {
+      UpdateAgedBrie(i);
+    } else if (items[i].name == GildedRoseConstants::BACKSTAGE) {
+      UpdateBackstage(i);
+    } else if (items[i].name == GildedRoseConstants::SULFURAS) {
+      UpdateSulfuras(i);
+    } else if (items[i].name == GildedRoseConstants::CONJURED) {
+      UpdateConjured(i);
+    } else {
+      UpdateNormal(i);
     }
+  }
 }
