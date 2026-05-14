@@ -1,31 +1,84 @@
 #include "GildedRose.h"
-#include "GildedRoseItem.h"
+#include "GildedRoseConstants.h"
 
 GildedRose::GildedRose(std::vector<Item> &items) : items(items) {}
+void GildedRose::UpdateAgedBrie(int idx) {
+  if (items[idx].quality < GildedRoseConstants::MaxQuality) {
+    items[idx].quality++;
+  }
 
-GildedRoseItem *GildedRose::CreateGildedItem(Item &item) {
-  if (item.name == GildedRoseConstants::AGEDBRIE) {
-    AgedBrieItem *PtrAgedBrieItem = new AgedBrieItem(item);
-    return PtrAgedBrieItem;
-  } else if (item.name == GildedRoseConstants::BACKSTAGE) {
-    BackStageItem *PtrBackStageItem = new BackStageItem(item);
-    return PtrBackStageItem;
-  } else if (item.name == GildedRoseConstants::SULFURAS) {
-    SulfurasItem *PtrSulfurasItem = new SulfurasItem(item);
-    return PtrSulfurasItem;
-  } else if (item.name == GildedRoseConstants::CONJURED) {
-    ConjuredItem *PtrConjuredItem = new ConjuredItem(item);
-    return PtrConjuredItem;
-  } else {
-    NormalItem *PtrNormalItem = new NormalItem(item);
-    return PtrNormalItem;
+  items[idx].sellIn--;
+  if (items[idx].sellIn < 0) {
+    if (items[idx].quality < GildedRoseConstants::MaxQuality) {
+      items[idx].quality++;
+    }
   }
 }
-void GildedRose::UpdateQuality() {
-  for (auto &item : items) {
-    GildedRoseItem *ptrGildedRoseItem = CreateGildedItem(item);
-    ptrGildedRoseItem->UpdateQuality();
-    ptrGildedRoseItem->UpdateSellin();
-    delete ptrGildedRoseItem;
+
+void GildedRose::UpdateBackstage(int idx) {
+  if (items[idx].quality < GildedRoseConstants::MaxQuality) {
+    items[idx].quality++;
+  }
+
+  if (items[idx].sellIn < 11) {
+    if (items[idx].quality < GildedRoseConstants::MaxQuality) {
+      items[idx].quality++;
+    }
+  }
+
+  if (items[idx].sellIn < 6) {
+    if (items[idx].quality < GildedRoseConstants::MaxQuality) {
+      items[idx].quality++;
+    }
+  }
+  items[idx].sellIn--;
+  if (items[idx].sellIn < 0) {
+    items[idx].quality = 0;
+  }
+}
+
+void GildedRose::UpdateSulfuras(int idx) { return; }
+
+void GildedRose::UpdateNormal(int idx) {
+  if (items[idx].quality > GildedRoseConstants::MinQuality) {
+    items[idx].quality--;
+  }
+  items[idx].sellIn--;
+  if (items[idx].sellIn < 0) {
+    if (items[idx].quality > GildedRoseConstants::MinQuality) {
+      items[idx].quality--;
+    }
+  }
+}
+
+void GildedRose::UpdateConjured(int idx) {
+  if (items[idx].quality > GildedRoseConstants::MinQuality) {
+    items[idx].quality--;
+  }
+  items[idx].sellIn--;
+  if (items[idx].sellIn < 0) {
+    if (items[idx].quality >= 4) {
+      items[idx].quality -= 4;
+    } else {
+      items[idx].quality = 0;
+    }
+  } else {
+    items[idx].quality--;
+  }
+}
+
+void GildedRose::updateQuality() {
+  for (size_t i = 0; i < items.size(); i++) {
+    if (items[i].name == GildedRoseConstants::AGEDBRIE) {
+      UpdateAgedBrie(i);
+    } else if (items[i].name == GildedRoseConstants::BACKSTAGE) {
+      UpdateBackstage(i);
+    } else if (items[i].name == GildedRoseConstants::SULFURAS) {
+      UpdateSulfuras(i);
+    } else if (items[i].name == GildedRoseConstants::CONJURED) {
+      UpdateConjured(i);
+    } else {
+      UpdateNormal(i);
+    }
   }
 }
