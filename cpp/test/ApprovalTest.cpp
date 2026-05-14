@@ -43,7 +43,7 @@ protected:
 
       result << "\n";
 
-      app.updateQuality();
+      app.UpdateQuality();
     }
 
     return result.str();
