@@ -34,7 +34,6 @@ target_link_libraries(gilded_rose_test gilded_rose GTest::gtest_main)
 add_executable(all_tests
     test/ApprovalTest.cpp
 )
-
 target_include_directories(all_tests PUBLIC include)
 
 target_link_libraries(all_tests
@@ -44,7 +43,14 @@ target_link_libraries(all_tests
     gilded_rose
 )
 
+# FoodBeverage Tests
+add_executable(fb_tests
+    test/FoodBeverageTest.cpp
+)
+target_include_directories(fb_tests PUBLIC include)
+target_link_libraries(fb_tests gilded_rose GTest::gtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(gilded_rose_test)
 gtest_discover_tests(all_tests)
+gtest_discover_tests(fb_tests)

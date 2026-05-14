@@ -15,6 +15,9 @@ GildedRoseItem *GildedRose::CreateGildedItem(Item &item) {
   } else if (item.name == GildedRoseConstants::CONJURED) {
     ConjuredItem *PtrConjuredItem = new ConjuredItem(item);
     return PtrConjuredItem;
+  } else if (item.name.find("[F&B]") != std::string::npos) {
+    FoodBegerageItem *PtrFoodBegerageItem = new FoodBegerageItem(item);
+    return PtrFoodBegerageItem;
   } else {
     NormalItem *PtrNormalItem = new NormalItem(item);
     return PtrNormalItem;

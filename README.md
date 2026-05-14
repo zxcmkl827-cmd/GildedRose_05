@@ -106,3 +106,40 @@ Test project C:/DEV/GildedRose_05/cpp/build
 100% tests passed, 0 tests failed out of 11
 
 Total Test time (real) =   0.41 sec
+
+- Food & Beverage Header 추가 이후 Test Case 추가 (성공)
+
+C:\DEV\GildedRose_05\cpp\build>ctest --output-on-failure
+Test project C:/DEV/GildedRose_05/cpp/build
+      Start  1: GildedRoseTest.NormalItemQualityLowerLimit
+ 1/14 Test  #1: GildedRoseTest.NormalItemQualityLowerLimit ...............   Passed    0.04 sec
+      Start  2: GildedRoseTest.NormalItemSellInSpecOut
+ 2/14 Test  #2: GildedRoseTest.NormalItemSellInSpecOut ...................   Passed    0.04 sec
+      Start  3: GildedRoseTest.SulfurasNoQualityDecrease_SellinSpecIn
+ 3/14 Test  #3: GildedRoseTest.SulfurasNoQualityDecrease_SellinSpecIn ....   Passed    0.04 sec
+      Start  4: GildedRoseTest.SulfurasNoQualityDecrease_SellinSpecOut
+ 4/14 Test  #4: GildedRoseTest.SulfurasNoQualityDecrease_SellinSpecOut ...   Passed    0.04 sec
+      Start  5: GildedRoseTest.AgedBrieQualityIncrease_SellinSpecOut
+ 5/14 Test  #5: GildedRoseTest.AgedBrieQualityIncrease_SellinSpecOut .....   Passed    0.03 sec
+      Start  6: GildedRoseTest.AgedBrieQualityUpperLimit
+ 6/14 Test  #6: GildedRoseTest.AgedBrieQualityUpperLimit .................   Passed    0.03 sec
+      Start  7: GildedRoseTest.BackStageOver10Days
+ 7/14 Test  #7: GildedRoseTest.BackStageOver10Days .......................   Passed    0.03 sec
+      Start  8: GildedRoseTest.BackStageQualityAfterConcert
+ 8/14 Test  #8: GildedRoseTest.BackStageQualityAfterConcert ..............   Passed    0.03 sec
+      Start  9: GildedRoseTest.BackStageOver50Quality
+ 9/14 Test  #9: GildedRoseTest.BackStageOver50Quality ....................   Passed    0.03 sec
+      Start 10: GildedRoseTest.EmptyItems
+10/14 Test #10: GildedRoseTest.EmptyItems ................................   Passed    0.03 sec
+      Start 11: ApprovalTest.PrintTextFixture
+11/14 Test #11: ApprovalTest.PrintTextFixture ............................   Passed    0.03 sec
+      Start 12: FoodBeverageTest.DegradesTwiceAsNormal
+12/14 Test #12: FoodBeverageTest.DegradesTwiceAsNormal ...................   Passed    0.03 sec
+      Start 13: FoodBeverageTest.DegradesFourTimesAfterSellIn
+13/14 Test #13: FoodBeverageTest.DegradesFourTimesAfterSellIn ............   Passed    0.03 sec
+      Start 14: FoodBeverageTest.QualityNeverBelowZero
+14/14 Test #14: FoodBeverageTest.QualityNeverBelowZero ...................   Passed    0.03 sec
+
+100% tests passed, 0 tests failed out of 14
+
+Total Test time (real) =   0.50 sec
