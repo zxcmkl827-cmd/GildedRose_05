@@ -1,3 +1,6 @@
+#define APPROVALS_GOOGLETEST
+
+#include "ApprovalTests.hpp"
 #include <gtest/gtest.h>
 
 #include <iostream>
